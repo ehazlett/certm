@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+TAG=${1:-}
+
+if [ -z "$TAG" ]; then
+    echo "Usage: $0 <version>"
+    echo " Example: $0 0.0.1"
+    exit 1
+fi
+
+echo "Building $TAG"
+docker build -t cert-tool-build -f Dockerfile.build .
+docker run -ti --rm -e TAG -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/go/src/github.com/ehazlett/cert-tool -w /go/src/github.com/ehazlett/cert-tool cert-tool-build make TAG=$TAG build image

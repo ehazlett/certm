@@ -10,4 +10,5 @@ fi
 
 echo "Building $TAG"
 docker build -t cert-tool-build -f Dockerfile.build .
+
 docker run -ti --rm -e TAG -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/go/src/github.com/ehazlett/cert-tool -w /go/src/github.com/ehazlett/cert-tool cert-tool-build make TAG=$TAG build image

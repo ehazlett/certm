@@ -11,7 +11,7 @@ deps:
 clean:
 	@rm -rf Godeps/_workspace cert-tool
 
-build:
+build: deps
 	@godep go build -a -tags 'netgo' -ldflags '-w -linkmode external -extldflags -static' .
 
 image: build
@@ -21,7 +21,7 @@ image: build
 release: deps build image
 	@docker push ehazlett/cert-tool:$(TAG)
 
-test: clean 
-	@godep go test -v ./...
+test:
+	@bats test/integration/cli.bats test/integration/certs.bats
 
 .PHONY: all deps build clean image test release

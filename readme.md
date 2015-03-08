@@ -19,3 +19,6 @@ This will generate a CA using the org "local", a client cert, and a server
 certificate that is valid using the DNS names "localhost" and "foo.local" as
 well as the IP "127.0.0.1"
 
+# Integration Tests
+To run integration tests, use `./script/test`.  This will run the integration
+tests in a container to validate proper usage.

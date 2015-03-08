@@ -35,8 +35,8 @@ func cmdGenerate(c *cli.Context) {
 	org := c.GlobalString("tls-ca-org")
 	bits := c.GlobalInt("tls-bit-size")
 
-	// check if certs exist and error if so
-	f, fErr := os.Stat(outputDir)
+	// check if ca cert exist and error if so
+	f, fErr := os.Stat(caCert)
 	if f != nil {
 		resp := ""
 		fmt.Printf("overwrite existing certs? (y/n): ")

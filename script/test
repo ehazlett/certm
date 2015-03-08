@@ -3,4 +3,4 @@ set -e
 
 docker build -t cert-tool-build -f Dockerfile.build .
 
-docker run --rm -v $(pwd):/go/src/github.com/ehazlett/cert-tool -w /go/src/github.com/ehazlett/cert-tool cert-tool-build make test
+docker run --rm -w /go/src/github.com/ehazlett/cert-tool cert-tool-build make test

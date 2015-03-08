@@ -4,15 +4,15 @@ Docker.
 
 # Usage
 ## Show Help
-`docker-certtool -h`: show help
+`docker run --rm ehazlett/cert-tool -h`
 
 ## Generate CA and client certificates / keys
-`docker-certtool -d=certs -o=local`
+` docker run --rm -v $(pwd)/certs:/certs ehazlett/cert-tool -d /certs -o=local`
 
 This will generate a CA using the org "local" and a client certificate.
 
 ## Generate CA, client and server certificates/keys
-`docker-certtool -d=certs -o=local -s localhost -s 127.0.0.1 -s foo.local`
+`docker run --rm -v $(pwd)/certs:/certs ehazlett/cert-tool -d /certs -o=local -s localhost -s 127.0.0.1 -s foo.local`
 
 This will generate a CA using the org "local", a client cert, and a server
 certificate that is valid using the DNS names "localhost" and "foo.local" as

@@ -2,7 +2,6 @@
 CertTool is a simple tool to generate TLS certificates and keys for use with
 Docker.
 
-
 # Usage
 ## Show Help
 `docker-certtool -h`: show help

@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e
+if [ -z "$1" ]; then
+    echo "Usage: $0 <version>"
+    exit 1
+fi
+
+VERSION=$1
+
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "GITHUB_TOKEN must be set for github-release"
+    exit 1
+fi
+
+echo "Building"
+script/build $VERSION
+
+echo "Generating sums"
+docker run --rm -v `pwd`:/go/src/github.com/ehazlett/cert-tool cert-tool-build ./script/generate-sums
+
+echo "Creating Tag"
+git tag $VERSION
+echo "Pushing tag"
+git push --tags
+
+echo "Creating Release"
+docker run --rm -e GITHUB_TOKEN cert-tool-build github-release release \
+    --user ehazlett \
+    --repo cert-tool \
+    --tag $VERSION \
+    --name $VERSION \
+    --description "" \
+    --pre-release
+
+for BINARY in cert-tool_*; do
+    echo "Uploading $BINARY"
+    docker run --rm -e GITHUB_TOKEN -v `pwd`:/go/src/github.com/ehazlett/cert-tool \
+        cert-tool-build github-release upload \
+        --user ehazlett \
+        --repo cert-tool \
+        --tag $VERSION \
+        --name $BINARY \
+        --file $BINARY
+done

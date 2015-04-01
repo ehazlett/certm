@@ -11,7 +11,7 @@ deps:
 	@godep restore
 
 clean:
-	@rm -rf Godeps/_workspace cert-tool
+	@rm -rf cert-tool cert-tool_*
 
 build: deps
 	@godep go build -a -tags 'netgo' -ldflags '-w -linkmode external -extldflags -static' .

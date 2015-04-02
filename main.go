@@ -8,10 +8,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/docker/machine/utils"
-)
-
-const (
-	version = "0.0.1"
+	"github.com/ehazlett/cert-tool/version"
 )
 
 func fatal(msg interface{}) {
@@ -83,8 +80,8 @@ func cmdGenerate(c *cli.Context) {
 func main() {
 	app := cli.NewApp()
 	app.Name = os.Args[0]
-	app.Usage = "Docker CertTool"
-	app.Version = version
+	app.Usage = "Docker Cert Tool"
+	app.Version = version.VERSION + " (" + version.GITCOMMIT + ")"
 	app.Author = "@ehazlett"
 	app.Email = ""
 	app.Flags = []cli.Flag{

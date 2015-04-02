@@ -17,7 +17,7 @@ build: deps
 	@godep go build -a -tags 'netgo' -ldflags '-w -linkmode external -extldflags -static' .
 
 build-cross: deps
-	gox -os=$(OS) -arch=$(ARCH) -output="cert-tool_{{.OS}}_{{.Arch}}"
+	@gox -os=$(OS) -arch=$(ARCH) -output="cert-tool_{{.OS}}_{{.Arch}}"
 
 image: build
 	@echo Building image $(TAG)

@@ -15,6 +15,11 @@ fi
 echo "Building"
 script/build $VERSION
 
+echo "Pushing to Hub"
+docker tag -f ehazlett/cert-tool:$VERSION ehazlett/cert-tool:latest
+docker push ehazlett/cert-tool:$VERSION
+docker push ehazlett/cert-tool:latest
+
 echo "Generating sums"
 docker run --rm -v `pwd`:/go/src/github.com/ehazlett/cert-tool cert-tool-build ./script/generate-sums
 

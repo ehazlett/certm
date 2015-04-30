@@ -23,8 +23,18 @@ func cmdGenerate(c *cli.Context) {
 		fatal("you must specify an output directory")
 	}
 
-	caCert := filepath.Join(outputDir, "ca.pem")
-	caKey := filepath.Join(outputDir, "ca-key.pem")
+	caCert := c.String("tls-ca-cert")
+	caKey := c.String("tls-ca-key")
+
+	// generate CA unless passed
+	generateCA := true
+	if caCert == "" && caKey == "" {
+		caCert = filepath.Join(outputDir, "ca.pem")
+		caKey = filepath.Join(outputDir, "ca-key.pem")
+	} else {
+		generateCA = false
+	}
+
 	clientCert := filepath.Join(outputDir, "client.pem")
 	clientKey := filepath.Join(outputDir, "client-key.pem")
 	serverCert := filepath.Join(outputDir, "server.pem")
@@ -32,8 +42,8 @@ func cmdGenerate(c *cli.Context) {
 	org := c.GlobalString("tls-ca-org")
 	bits := c.GlobalInt("tls-bit-size")
 
-	// check if ca cert exist and error if so
-	f, fErr := os.Stat(caCert)
+	// check if client cert exist and prompt to overwrite
+	f, fErr := os.Stat(clientCert)
 	if f != nil {
 		resp := ""
 		fmt.Printf("overwrite existing certs? (y/n): ")
@@ -54,9 +64,11 @@ func cmdGenerate(c *cli.Context) {
 	}
 
 	// generate CA
-	println("generating ca certificate/key")
-	if err := utils.GenerateCACertificate(caCert, caKey, org, bits); err != nil {
-		fatal(err)
+	if generateCA {
+		println("generating ca certificate/key")
+		if err := utils.GenerateCACertificate(caCert, caKey, org, bits); err != nil {
+			fatal(err)
+		}
 	}
 
 	// generate client cert
@@ -89,6 +101,16 @@ func main() {
 			Name:  "output-directory, d",
 			Value: "",
 			Usage: "output directory for certs",
+		},
+		cli.StringFlag{
+			Name:  "tls-ca-cert",
+			Usage: "TLS CA Certificate (optional)",
+			Value: "",
+		},
+		cli.StringFlag{
+			Name:  "tls-ca-key",
+			Usage: "TLS CA Key (optional)",
+			Value: "",
 		},
 		cli.StringFlag{
 			Name:  "tls-ca-org, o",

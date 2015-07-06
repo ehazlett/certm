@@ -1,9 +1,13 @@
 package version
 
 var (
-	// VERSION should be updated by hand at each release
-	VERSION = "0.0.3"
+	// Version should be updated by hand at each release
+	Version = "0.1.0"
 
 	// GITCOMMIT will be overwritten automatically by the build system
-	GITCOMMIT = "HEAD"
+	GitCommit = "HEAD"
 )
+
+func FullVersion() string {
+	return Version + " (" + GitCommit + ")"
+}

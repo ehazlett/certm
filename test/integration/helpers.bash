@@ -17,12 +17,12 @@ build() {
 }
 
 # build machine binary if needed
-if [ ! -e $MACHINE_ROOT/cert-tool ]; then
+if [ ! -e $MACHINE_ROOT/certm ]; then
     build
 fi
 
-certtool() {
-    ${ROOT}/cert-tool "$@"
+certm() {
+    ${ROOT}/certm "$@"
 }
 
 certgen() {

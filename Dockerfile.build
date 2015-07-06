@@ -6,7 +6,7 @@ RUN go get github.com/mitchellh/gox
 
 RUN gox -build-toolchain
 
-ADD . /go/src/github.com/ehazlett/cert-tool
+ADD . /go/src/github.com/ehazlett/certm
 
 RUN (git clone https://github.com/sstephenson/bats.git && \
     cd bats && ./install.sh /usr/local)
@@ -17,4 +17,4 @@ RUN chmod +x /usr/local/bin/docker
 
 ENV SHELL /bin/bash
 
-WORKDIR /go/src/github.com/ehazlett/cert-tool
+WORKDIR /go/src/github.com/ehazlett/certm

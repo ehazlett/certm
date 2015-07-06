@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-docker build -t cert-tool-build -f Dockerfile.build .
+docker build -t certm-build -f Dockerfile.build .
 
-docker run --rm -w /go/src/github.com/ehazlett/cert-tool cert-tool-build make test
+docker run --rm -w /go/src/github.com/ehazlett/certm certm-build make test

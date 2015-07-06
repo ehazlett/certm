@@ -1,3 +1,3 @@
 FROM scratch
-ADD cert-tool /bin/cert-tool
-ENTRYPOINT ["/bin/cert-tool"]
+ADD certm /bin/certm
+ENTRYPOINT ["/bin/certm"]

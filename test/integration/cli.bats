@@ -3,13 +3,13 @@
 load helpers
 
 @test "cli: show info" {
-    run certtool
+    run certm
     [ "$status" -eq 1  ]
     [[ ${lines[0]} =~ "NAME:"  ]]
 }
 
 @test "cli: version" {
-    run certtool -v
+    run certm -v
     [ "$status" -eq 0  ]
     [[ ${lines[0]} =~ "version"  ]]
 }

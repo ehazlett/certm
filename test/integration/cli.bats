@@ -4,7 +4,7 @@ load helpers
 
 @test "cli: show info" {
     run certm
-    [ "$status" -eq 1  ]
+    [ "$status" -eq 0  ]
     [[ ${lines[0]} =~ "NAME:"  ]]
 }
 

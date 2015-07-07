@@ -31,6 +31,7 @@ func main() {
 	}
 	app.Commands = []cli.Command{
 		commands.CmdCA,
+		commands.CmdServer,
 	}
 	app.Flags = []cli.Flag{
 		cli.StringFlag{

@@ -14,11 +14,11 @@ var CmdCA = cli.Command{
 	Name:  "ca",
 	Usage: "CA certificate management",
 	Subcommands: []cli.Command{
-		cmdGenerate,
+		cmdCAGenerate,
 	},
 }
 
-var cmdGenerate = cli.Command{
+var cmdCAGenerate = cli.Command{
 	Name:   "generate",
 	Usage:  "generate new certificate",
 	Action: caGenerate,

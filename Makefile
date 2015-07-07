@@ -12,20 +12,20 @@ deps:
 	@godep restore
 
 clean:
-	@rm -rf cert-tool cert-tool_*
+	@rm -rf certm certm_*
 
 build: deps
-	@godep go build -a -tags 'netgo' -ldflags "-w -X github.com/ehazlett/cert-tool/version.GITCOMMIT $(COMMIT) -linkmode external -extldflags -static" .
+	@godep go build -a -tags 'netgo' -ldflags "-w -X github.com/ehazlett/certm/version.GitCommit $(COMMIT) -linkmode external -extldflags -static" .
 
 build-cross: deps
-	@gox -os=$(OS) -arch=$(ARCH) -ldflags "-w -X github.com/ehazlett/cert-tool/version.GITCOMMIT $(COMMIT)" -output="cert-tool_{{.OS}}_{{.Arch}}"
+	@gox -os=$(OS) -arch=$(ARCH) -ldflags "-w -X github.com/ehazlett/certm/version.GitCommit $(COMMIT)" -output="certm_{{.OS}}_{{.Arch}}"
 
 image: build
 	@echo Building image $(TAG)
-	@docker build -t ehazlett/cert-tool:$(TAG) .
+	@docker build -t ehazlett/certm:$(TAG) .
 
 release: deps build image
-	@docker push ehazlett/cert-tool:$(TAG)
+	@docker push ehazlett/certm:$(TAG)
 
 test:
 	@bats test/integration/cli.bats test/integration/certs.bats

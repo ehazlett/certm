@@ -16,12 +16,12 @@ echo "Building"
 script/build $VERSION
 
 echo "Pushing to Hub"
-docker tag -f ehazlett/cert-tool:$VERSION ehazlett/cert-tool:latest
-docker push ehazlett/cert-tool:$VERSION
-docker push ehazlett/cert-tool:latest
+docker tag -f ehazlett/certm:$VERSION ehazlett/certm:latest
+docker push ehazlett/certm:$VERSION
+docker push ehazlett/certm:latest
 
 echo "Generating sums"
-docker run --rm -v `pwd`:/go/src/github.com/ehazlett/cert-tool cert-tool-build ./script/generate-sums
+docker run --rm -v `pwd`:/go/src/github.com/ehazlett/certm certm-build ./script/generate-sums
 
 echo "Creating Tag"
 git tag $VERSION
@@ -29,20 +29,20 @@ echo "Pushing tag"
 git push --tags
 
 echo "Creating Release"
-docker run --rm -e GITHUB_TOKEN cert-tool-build github-release release \
+docker run --rm -e GITHUB_TOKEN certm-build github-release release \
     --user ehazlett \
-    --repo cert-tool \
+    --repo certm \
     --tag $VERSION \
     --name $VERSION \
     --description "" \
     --pre-release
 
-for BINARY in cert-tool_*; do
+for BINARY in certm_*; do
     echo "Uploading $BINARY"
-    docker run --rm -e GITHUB_TOKEN -v `pwd`:/go/src/github.com/ehazlett/cert-tool \
-        cert-tool-build github-release upload \
+    docker run --rm -e GITHUB_TOKEN -v `pwd`:/go/src/github.com/ehazlett/certm \
+        certm-build github-release upload \
         --user ehazlett \
-        --repo cert-tool \
+        --repo certm \
         --tag $VERSION \
         --name $BINARY \
         --file $BINARY

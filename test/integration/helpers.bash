@@ -17,17 +17,17 @@ build() {
 }
 
 # build machine binary if needed
-if [ ! -e $MACHINE_ROOT/cert-tool ]; then
+if [ ! -e $MACHINE_ROOT/certm ]; then
     build
 fi
 
-certtool() {
-    ${ROOT}/cert-tool "$@"
+certm() {
+    ${ROOT}/certm "$@"
 }
 
 certgen() {
     if [ -e $CERT_TEST_DIR ]; then
         rm -rf $CERT_TEST_DIR
     fi
-    certtool -d $CERT_TEST_DIR -o=$1 -b $2 ${*:3}
+    certm -d $CERT_TEST_DIR bundle generate -o=$1 -b $2 ${*:3} --overwrite
 }

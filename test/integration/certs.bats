@@ -3,7 +3,7 @@
 load helpers
 
 @test "certs: valid generation" {
-    run certgen $CERT_ORG $CERT_BIT_SIZE -s $CERT_SERVER_DNS -s $CERT_SERVER_IP
+    run certgen $CERT_ORG $CERT_BIT_SIZE --host $CERT_SERVER_DNS --host $CERT_SERVER_IP
     [ "$status" -eq 0  ]
 }
 
@@ -17,13 +17,13 @@ load helpers
     [ "$status" -eq 0  ]
 }
 
-@test "certs: client.pem should exist" {
-    run test -e $CERT_TEST_DIR/client.pem
+@test "certs: cert.pem should exist" {
+    run test -e $CERT_TEST_DIR/cert.pem
     [ "$status" -eq 0  ]
 }
 
-@test "certs: client-key.pem should exist" {
-    run test -e $CERT_TEST_DIR/client-key.pem
+@test "certs: key.pem should exist" {
+    run test -e $CERT_TEST_DIR/key.pem
     [ "$status" -eq 0  ]
 }
 
@@ -56,25 +56,25 @@ load helpers
 }
 
 @test "certs: valid client organization" {
-    run openssl x509 -in $CERT_TEST_DIR/client.pem -noout -text
+    run openssl x509 -in $CERT_TEST_DIR/cert.pem -noout -text
     echo "$output" | grep "Issuer: O=$CERT_ORG"
     [ "$status" -eq 0  ]
 }
 
 @test "certs: valid client bit size" {
-    run openssl x509 -in $CERT_TEST_DIR/client.pem -noout -text
+    run openssl x509 -in $CERT_TEST_DIR/cert.pem -noout -text
     echo "$output" | grep "($CERT_BIT_SIZE bit)"
     [ "$status" -eq 0  ]
 }
 
 @test "certs: client cert is not a CA" {
-    run openssl x509 -in $CERT_TEST_DIR/client.pem -noout -text
+    run openssl x509 -in $CERT_TEST_DIR/cert.pem -noout -text
     echo "$output" | grep "CA:FALSE"
     [ "$status" -eq 0  ]
 }
 
 @test "certs: client cert has proper extended usage" {
-    run openssl x509 -in $CERT_TEST_DIR/client.pem -noout -text
+    run openssl x509 -in $CERT_TEST_DIR/cert.pem -noout -text
     echo "$output" | grep "TLS Web Client Authentication"
     [ "$status" -eq 0  ]
 }

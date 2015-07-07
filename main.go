@@ -5,7 +5,10 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/ehazlett/certm/commands"
+	"github.com/ehazlett/certm/commands/bundle"
+	"github.com/ehazlett/certm/commands/ca"
+	"github.com/ehazlett/certm/commands/client"
+	"github.com/ehazlett/certm/commands/server"
 	"github.com/ehazlett/certm/version"
 	"github.com/ehazlett/simplelog"
 )
@@ -30,8 +33,10 @@ func main() {
 		return nil
 	}
 	app.Commands = []cli.Command{
-		commands.CmdCA,
-		commands.CmdServer,
+		ca.CmdCA,
+		server.CmdServer,
+		client.CmdClient,
+		bundle.CmdBundle,
 	}
 	app.Flags = []cli.Flag{
 		cli.StringFlag{

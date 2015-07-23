@@ -43,10 +43,12 @@ func generate(c *cli.Context) {
 		keyPath = filepath.Join(outputDir, "key.pem")
 	}
 
-	log.Printf("generating client certificate: cn=%q org=%s bits=%d",
+	log.Printf("generating client certificate: cn=%q org=%s bits=%d cert=%q key=%q",
 		commonName,
 		org,
 		bits,
+		certPath,
+		keyPath,
 	)
 
 	log.Debugf("creating output dir: path=%s", outputDir)
@@ -86,13 +88,15 @@ func generate(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	log.Debugf("creating certificate: path=%s", certPath)
-	if err := ioutil.WriteFile(certPath, cert, 0600); err != nil {
+	certDestPath := filepath.Join(outputDir, certPath)
+	log.Debugf("creating certificate: path=%s", certDestPath)
+	if err := ioutil.WriteFile(certDestPath, cert, 0600); err != nil {
 		log.Fatal(err)
 	}
 
-	log.Debugf("creating key: path=%s", keyPath)
-	if err := ioutil.WriteFile(keyPath, key, 0600); err != nil {
+	keyDestPath := filepath.Join(outputDir, keyPath)
+	log.Debugf("creating key: path=%s", keyDestPath)
+	if err := ioutil.WriteFile(keyDestPath, key, 0600); err != nil {
 		log.Fatal(err)
 	}
 }

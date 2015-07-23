@@ -30,12 +30,12 @@ var cmdGenerate = cli.Command{
 		cli.StringFlag{
 			Name:  "cert",
 			Value: "",
-			Usage: "certificate name (default: server.pem)",
+			Usage: "certificate name (default: cert.pem)",
 		},
 		cli.StringFlag{
 			Name:  "key",
 			Value: "",
-			Usage: "key name (default: server-key.pem)",
+			Usage: "key name (default: key.pem)",
 		},
 		cli.StringFlag{
 			Name:  "common-name, c",

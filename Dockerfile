@@ -1,3 +1,3 @@
 FROM scratch
-ADD certm /bin/certm
+COPY certm /bin/certm
 ENTRYPOINT ["/bin/certm"]

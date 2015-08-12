@@ -88,15 +88,13 @@ func generate(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	certDestPath := filepath.Join(outputDir, certPath)
-	log.Debugf("creating certificate: path=%s", certDestPath)
-	if err := ioutil.WriteFile(certDestPath, cert, 0600); err != nil {
+	log.Debugf("creating certificate: path=%s", certPath)
+	if err := ioutil.WriteFile(certPath, cert, 0600); err != nil {
 		log.Fatal(err)
 	}
 
-	keyDestPath := filepath.Join(outputDir, keyPath)
-	log.Debugf("creating key: path=%s", keyDestPath)
-	if err := ioutil.WriteFile(keyDestPath, key, 0600); err != nil {
+	log.Debugf("creating key: path=%s", keyPath)
+	if err := ioutil.WriteFile(keyPath, key, 0600); err != nil {
 		log.Fatal(err)
 	}
 }

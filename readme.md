@@ -28,7 +28,7 @@ This will generate a CA using the org "local", a server certificate with an
 IP SAN of "127.0.0.1" and a client certificate.
 
 ## Generate CA, client and server certificates/keys
-`docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs bundle generate -o=local -s localhost -s 127.0.0.1 -s foo.local`
+`docker run --rm -v $(pwd)/certs:/certs ehazlett/certm -d /certs bundle generate -o=local --host localhost --host 127.0.0.1 --host foo.local`
 
 This will generate a CA using the org "local", a client cert, and a server
 certificate that is valid using the DNS names "localhost" and "foo.local" as

@@ -23,9 +23,11 @@ build-cross: deps
 image: build
 	@echo Building image $(TAG)
 	@docker build -t ehazlett/certm:$(TAG) .
-
+    @echo Building image $(TAG)-alpine
+    @docker build -f ./Dockerfile-alpine -t ehazlett/certm:$(TAG)-alpine .
 release: deps build image
 	@docker push ehazlett/certm:$(TAG)
+	@docker push ehazlett/certm:$(TAG)-alpine
 
 test:
 	@bats test/integration/cli.bats test/integration/certs.bats

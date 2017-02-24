@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/codegangsta/cli"
 	"github.com/ehazlett/certm/utils"
 	"github.com/ehazlett/tlsutils"

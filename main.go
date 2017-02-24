@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 	"github.com/codegangsta/cli"
 	"github.com/ehazlett/certm/commands/bundle"
 	"github.com/ehazlett/certm/commands/ca"

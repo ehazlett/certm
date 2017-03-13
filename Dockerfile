@@ -1,3 +1,3 @@
-FROM scratch
-COPY certm /bin/certm
-ENTRYPOINT ["/bin/certm"]
+FROM alpine:latest
+COPY certm /usr/local/bin/certm
+ENTRYPOINT ["certm"]
